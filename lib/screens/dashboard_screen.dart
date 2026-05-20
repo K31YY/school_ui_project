@@ -88,3 +88,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
+  Widget _buildNavButton(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        backgroundColor: Colors.white,
+        foregroundColor: AppTheme.secondarySwatch,
+        // foregroundColor: Theme.of(context).primaryColor,
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 5,
+      ),
+      icon: Icon(icon, color: AppTheme.secondarySwatch),
+      label: Text(label),
+      onPressed: onPressed,
+    );
+  }
+}
