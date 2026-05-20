@@ -26,4 +26,53 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       selectDate = dateValue;
     });
+  }get screen => [
+    _buildBodyHome,
+    Container(color: Colors.amber),
+    Container(color: Colors.blue),
+  ];
+
+  Future<void> _navigateAndDisplaySelection(
+    BuildContext context, {
+    required int index,
+    required String titleName,
+    required String time,
+    required String teacher,
+    required String data,
+  }) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SubjectDetailScreen(
+          index: index,
+          titleName: titleName,
+          time: time,
+          teacher: teacher,
+          date: DateTime.now().toString(),
+        ),
+      ),
+    );
+
+    if (!context.mounted) return;
+
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('${result[1]}')));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('Home'),
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_back_ios_new_rounded),
+      //     onPressed: () {
+      //       Navigator.pop(context, ['Welcome back!!!']);
+      //     },
+      //   ),
+      // ),
+      body: screen[currentIndex],
+      bottomNavigationBar: _buildBottomNavigationBar,
+    );
   }
