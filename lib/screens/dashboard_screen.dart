@@ -23,3 +23,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text('${result[0]}')));
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            // colors: [Color(0xFF6A11CB), AppTheme.secondarySwatch],
+            colors: [AppTheme.primarySwatch, AppTheme.secondarySwatch],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 50,
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(SASTRA_DIGITAL_SOLUTION),
+              radius: 85,
+            ),
+
+            const Text(
+              'Welcome to Dashboard',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            Column(
+              children: [
+                _buildNavButton(
+                  context,
+                  icon: Icons.home,
+                  label: 'Go to Home Screen 1',
+                  onPressed: () {
+                    _navigateAndDisplaySelection(context);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const HomeScreen(),
+                    //   ),
+                    // );
+                  },
+                ),
+                const SizedBox(height: 25),
+                _buildNavButton(
+                  context,
+                  icon: Icons.explore,
+                  label: 'Go to Home Screen 2',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home2');
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
