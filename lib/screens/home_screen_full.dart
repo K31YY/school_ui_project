@@ -1,113 +1,137 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
-import 'package:flutter_first_project/core/string_con.dart';
-import 'package:flutter_first_project/screen/home_screen.dart';
+import 'package:flutter_first_project/widget/card_home_widget.dart';
+import 'package:flutter_first_project/widget/date_time_line_widget.dart';
+import 'package:flutter_first_project/widget/schedule_card.dart';
+import 'package:intl/intl.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class HomeScreenFull extends StatefulWidget {
+  const HomeScreenFull({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<HomeScreenFull> createState() => _HomeScreenFullState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
-  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-    );
-
-    if (!context.mounted) return;
-
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('${result[0]}')));
+class _HomeScreenFullState extends State<HomeScreenFull> {
+  var dateFormat = DateFormat('EEEE, dd MMMM').format(DateTime.now());
+  var date = DateTime.now();
+  void formatCustomDate(DateTime dateValue) {
+    setState(() {
+      dateFormat = DateFormat('EEEE, dd MMMM').format(dateValue);
+      date = dateValue;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            // colors: [Color(0xFF6A11CB), AppTheme.secondarySwatch],
-            colors: [AppTheme.primarySwatch, AppTheme.secondarySwatch],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 50,
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(SASTRA_DIGITAL_SOLUTION),
-              radius: 85,
-            ),
+    return Scaffold(body: _buildBody);
+  }
 
-            const Text(
-              'Welcome to Dashboard',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+  final List<String> _slideRowTitle = [
+    'Acadamix success',
+    'Learn by doing',
+    'Join the community',
+    'Find the best resources',
+    'Get support',
+    'Showcase your work',
+    'Plan your time wisely',
+    'Stay motivated',
+  ];
 
-            Column(
-              children: [
-                _buildNavButton(
-                  context,
-                  icon: Icons.home,
-                  label: 'Go to Home Screen 1',
-                  onPressed: () {
-                    _navigateAndDisplaySelection(context);
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const HomeScreen(),
-                    //   ),
-                    // );
-                  },
-                ),
-                const SizedBox(height: 25),
-                _buildNavButton(
-                  context,
-                  icon: Icons.explore,
-                  label: 'Go to Home Screen 2',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home2');
-                  },
-                ),
-              ],
-            ),
-          ],
+  get _buildBody {
+    return Column(
+      children: [
+        CardHomeWidget(
+          name: 'Vichra',
+          urlImage:
+              'https://images.unsplash.com/photo-1541516160071-4bb0c5af65ba?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGFraW5nJTIwcGhvdG98ZW58MHx8MHx8fDA%3D',
+          slideRowTitle: _slideRowTitle,
         ),
-      ),
+        DateTimeLineWidget(
+          initialDate: date,
+          onDateChange: (value) {
+            return formatCustomDate(value);
+          },
+        ),
+        _buildSchedule(date),
+      ],
     );
   }
 
-  Widget _buildNavButton(
-    BuildContext context, {
-    required IconData icon,
-    required String label,
-    required VoidCallback onPressed,
-  }) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        backgroundColor: Colors.white,
-        foregroundColor: AppTheme.secondarySwatch,
-        // foregroundColor: Theme.of(context).primaryColor,
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 5,
+  Widget _buildSchedule(DateTime dateValue) {
+    final Map<String, List<Map<String, String>>> schedules = {
+      "2025-04-04": [
+        {
+          "time": "07:00 - 07:45",
+          "subject": "Japan",
+          "teacher": "Floyd Miles",
+          "duration": "15 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+      ],
+      "2025-02-10": [
+        {
+          "time": "07:00 - 07:45",
+          "subject": "Physics",
+          "teacher": "Michael Johnson",
+          "duration": "15 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Chemistry",
+          "teacher": "Emma Brown",
+          "duration": "10 min",
+        },
+      ],
+    };
+
+    String dateKey =
+        "${dateValue.year}-${dateValue.month.toString().padLeft(2, '0')}-${dateValue.day.toString().padLeft(2, '0')}";
+
+    List<Map<String, String>> selectedSchedule = schedules[dateKey] ?? [];
+
+    return Expanded(
+      child: ListView.builder(
+        padding: EdgeInsets.only(left: 8, right: 8, top: 15),
+        itemCount: selectedSchedule.length,
+        itemBuilder: (context, index) {
+          return ScheduleCardWidget(
+            time: selectedSchedule[index]["time"]!,
+            subject: selectedSchedule[index]["subject"]!,
+            teacher: selectedSchedule[index]["teacher"]!,
+            duration: selectedSchedule[index]["duration"]!,
+            onTap: () {},
+          );
+        },
       ),
-      icon: Icon(icon, color: AppTheme.secondarySwatch),
-      label: Text(label),
-      onPressed: onPressed,
     );
   }
 }
