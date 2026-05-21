@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_project/config/theme/theme_style.dart';
 
 class CardHomeWidget extends StatefulWidget {
   final String name;
   final String urlImage;
-  // final List slideRowTitle;
   final bool isUrlNetwork;
+  final List slideRowTitle;
+
   const CardHomeWidget({
     super.key,
     required this.name,
     required this.urlImage,
-    // required this.slideRowTitle,
     this.isUrlNetwork = true,
+    required this.slideRowTitle,
   });
 
   @override
@@ -18,32 +20,30 @@ class CardHomeWidget extends StatefulWidget {
 }
 
 class _CardHomeWidgetState extends State<CardHomeWidget> {
-  final List<String> _slideRowTitle = [
-    'Academic success',
-    'Years List',
-    'Subject',
-    'Class',
-  ];
-
   final List<IconData> _slideRowIcon = [
-    Icons.abc,
-    Icons.notification_add,
-    Icons.abc_rounded,
-    Icons.abc_sharp,
-    Icons.ac_unit,
-    Icons.ac_unit_outlined,
+    Icons.check_circle,
+    Icons.construction,
+    Icons.people,
+    Icons.find_in_page,
+    Icons.support_agent,
+    Icons.desktop_mac,
+    Icons.calendar_today,
+    Icons.mood,
   ];
-
-  final List<Color> _slideColor = [
-    Colors.amber,
-    Colors.red,
-    Colors.green,
+  final List<Color> _slideRowColor = [
     Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.orange,
+    Colors.red,
+    Colors.purple,
+    Colors.pink,
+    Colors.brown,
   ];
 
-  final List<String> _grade = ['A-', '90-92', '3.7'];
-  final String profileImage = 'assets/image/ken.png.png';
-  final List<String> _bottomCardTitle = ['Letter Grade', 'Grade, %', 'GPA'];
+  final List<String> _bottomCardTitle = ['A-', '90-92', '3.7'];
+  final List<String> _bottomCardSubTitle = ['Letter grade', 'Grade, %', 'GPA'];
+  final String profileImage = 'assets/image/profile_sokhy.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +55,14 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
       SizedBox(height: 88),
       Stack(
         clipBehavior: Clip.none,
-        alignment: AlignmentGeometry.topCenter,
+        alignment: Alignment.center,
         children: [
           Container(
-            margin: EdgeInsets.all(20),
-            height: 350,
+            margin: EdgeInsets.all(10),
+            height: 400,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.lightBlue,
+              color: AppTheme.secondarySwatch,
               borderRadius: BorderRadius.circular(35),
             ),
             child: Column(
@@ -71,27 +71,21 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
-                  spacing: 5,
+                  spacing: 20,
                   children: [
                     Column(
                       children: [
                         Text(
                           widget.name,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                          style: AppTextStyle.bold22(color: Colors.white),
+                        ),
+                        Text(
+                          '9th Grade',
+                          style: AppTextStyle.regular16(
+                            color: Colors.white.withValues(alpha: 95),
                           ),
                         ),
                       ],
-                    ),
-                    Text(
-                      '9th Grade',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
                     ),
                     _slideRow,
                     _bottomCard,
@@ -101,20 +95,22 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
             ),
           ),
           Positioned(
-            top: -35,
+            top: -40,
             child: Container(
               margin: EdgeInsets.all(20),
-              height: 100,
-              width: 100,
+              height: 105,
+              width: 105,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.grey[300],
                 image: DecorationImage(
                   image: widget.isUrlNetwork == true
                       ? NetworkImage(widget.urlImage)
                       : AssetImage(widget.urlImage),
+                  fit: BoxFit.cover,
                 ),
+                // image: DecorationImage(image: AssetImage(profileImage)),
                 borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: Colors.white),
+                border: Border.all(color: Colors.white, width: 3),
               ),
             ),
           ),
@@ -128,14 +124,13 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
     scrollDirection: Axis.horizontal,
     child: Row(
       children: List.generate(
-        _slideRowTitle.length,
+        widget.slideRowTitle.length,
         (index) => Container(
           margin: EdgeInsets.only(right: 10),
-          padding: EdgeInsets.all(8),
-          height: 68,
+          padding: EdgeInsets.all(10),
+          height: 65,
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Colors.amber),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
@@ -143,17 +138,14 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
             children: [
               Container(
                 height: 50,
-                width: 50,
+                width: 45,
                 decoration: BoxDecoration(
-                  color: _slideColor[index],
+                  color: _slideRowColor[index],
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(_slideRowIcon[index], color: Colors.white),
               ),
-              Text(
-                _slideRowTitle[index],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text(widget.slideRowTitle[index], style: AppTextStyle.bold14()),
             ],
           ),
         ),
@@ -162,34 +154,36 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
   );
 
   get _bottomCard => Container(
-    padding: EdgeInsets.all(25),
-    height: 125,
+    padding: EdgeInsets.all(20),
+    height: 135,
     decoration: BoxDecoration(
-      color: Colors.blue,
+      color: AppTheme.secondarySwatch[800],
       borderRadius: BorderRadius.circular(25),
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: List.generate(
-        3,
+        _bottomCardTitle.length,
         (index) => Expanded(
           child: Container(
             margin: EdgeInsets.only(left: 5),
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+              color: Colors.white.withAlpha(30),
+              borderRadius: BorderRadius.circular(18),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  _grade[index],
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  _bottomCardTitle[index],
+                  style: AppTextStyle.regular18(color: Colors.white),
                 ),
                 Text(
-                  _bottomCardTitle[index],
-                  style: TextStyle(color: Colors.grey),
+                  _bottomCardSubTitle[index],
+                  style: AppTextStyle.regular16(
+                    color: Colors.white.withAlpha(90),
+                  ),
                 ),
               ],
             ),
