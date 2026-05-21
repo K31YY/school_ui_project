@@ -290,3 +290,120 @@ class _HomeSmallState extends State<HomeSmall> {
       ),
     );
   }
+
+  Widget _buildHeaderButton(IconData icon, String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            spreadRadius: 0.2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Icon(icon, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 6),
+          Text(text, style: AppTextStyle.bold16()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSchedule(DateTime dateValue) {
+    // FIX 1: Updated mock data map keys to 2026 to match today's date
+    final Map<String, List<Map<String, String>>> schedules = {
+      "2026-05-18": [
+        {
+          "time": "07:00 - 07:45",
+          "subject": "Japan",
+          "teacher": "Floyd Miles",
+          "duration": "15 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Mechanic",
+          "teacher": "Sophia Carter",
+          "duration": "10 min",
+        },
+      ],
+      "2026-05-20": [
+        {
+          "time": "07:00 - 07:45",
+          "subject": "Physics",
+          "teacher": "Michael Johnson",
+          "duration": "15 min",
+        },
+        {
+          "time": "08:00 - 08:45",
+          "subject": "Chemistry",
+          "teacher": "Emma Brown",
+          "duration": "10 min",
+        },
+      ],
+    };
+
+    String dateKey =
+        "${dateValue.year}-${dateValue.month.toString().padLeft(2, '0')}-${dateValue.day.toString().padLeft(2, '0')}";
+
+    List<Map<String, String>> selectedSchedule = schedules[dateKey] ?? [];
+
+    // FIX 2: Added a safe empty state widget using SliverToBoxAdapter inside CustomScrollView
+    if (selectedSchedule.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.only(top: 40),
+          child: Center(
+            child: Text(
+              "No classes scheduled for this date",
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return SliverPadding(
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => Padding(
+            padding: EdgeInsets.only(
+              bottom: index == selectedSchedule.length - 1 ? 0 : 10,
+            ),
+            child: ScheduleCardWidget(
+              time: selectedSchedule[index]["time"]!,
+              subject: selectedSchedule[index]["subject"]!,
+              teacher: selectedSchedule[index]["teacher"]!,
+              duration: selectedSchedule[index]["duration"]!,
+              onTap: () {
+                _navigateAndDisplaySelection(
+                  context,
+                  index: index,
+                  titleName: selectedSchedule[index]["subject"]!,
+                  time: selectedSchedule[index]["time"]!,
+                  teacher: selectedSchedule[index]["teacher"]!,
+                  data: dateKey,
+                );
+              },
+            ),
+          ),
+          childCount: selectedSchedule.length,
+        ),
+      ),
+    );
+  }
+}
