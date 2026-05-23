@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
+import 'package:flutter_school_app/config/theme/theme_style.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final void Function(int)? onTap;

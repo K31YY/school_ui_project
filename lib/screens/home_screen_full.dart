@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/widget/card_home_widget.dart';
-import 'package:flutter_first_project/widget/date_time_line_widget.dart';
-import 'package:flutter_first_project/widget/schedule_card.dart';
+import 'package:flutter_school_app/widget/card_home_widget.dart';
+import 'package:flutter_school_app/widget/date_time_line_widget.dart';
+import 'package:flutter_school_app/widget/schedule_card.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreenFull extends StatefulWidget {
@@ -37,6 +37,7 @@ class _HomeScreenFullState extends State<HomeScreenFull> {
     'Stay motivated',
   ];
 
+  // ignore: strict_top_level_inference
   get _buildBody {
     return Column(
       children: [

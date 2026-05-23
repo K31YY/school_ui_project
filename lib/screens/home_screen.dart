@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/screen/subject_detail.dart';
-import 'package:flutter_first_project/widget/card_home_widget.dart';
-import 'package:flutter_first_project/widget/date_time_line_widget.dart';
-import 'package:flutter_first_project/widget/schedule_card.dart';
+import 'package:flutter_school_app/screens/subject_detail.dart';
+import 'package:flutter_school_app/widget/card_home_widget.dart';
+import 'package:flutter_school_app/widget/date_time_line_widget.dart';
+import 'package:flutter_school_app/widget/schedule_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       selectDate = dateValue;
     });
-  }get screen => [
+  }
+
+  List<dynamic> get screen => [
     _buildBodyHome,
     Container(color: Colors.amber),
     Container(color: Colors.blue),
@@ -88,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Stay motivated',
   ];
 
-  get _buildBodyHome {
+  Column get _buildBodyHome {
     return Column(
       children: [
         CardHomeWidget(
@@ -181,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  get _buildBottomNavigationBar {
+  BottomNavigationBar get _buildBottomNavigationBar {
     List<BottomNavigationBarItem> items = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),

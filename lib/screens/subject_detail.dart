@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/functions/function.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
-import 'package:flutter_first_project/widget/shimmer_widget.dart';
+import 'package:flutter_school_app/config/functions/function.dart';
+import 'package:flutter_school_app/config/theme/theme_style.dart';
+import 'package:flutter_school_app/widget/shimmer_widget.dart';
 
 class SubjectDetailScreen extends StatefulWidget {
   final int index;
@@ -57,6 +57,7 @@ class _SubjectDetailScreenState extends State<SubjectDetailScreen> {
     );
   }
 
+  // ignore: strict_top_level_inference
   get _buildBodys => Container(
     height: 300,
     margin: EdgeInsets.all(20),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
+import 'package:flutter_school_app/config/theme/theme_style.dart';
 
 class CardHomeWidget extends StatefulWidget {
   final String name;
@@ -50,6 +50,7 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
     return _buildCard;
   }
 
+  // ignore: strict_top_level_inference
   get _buildCard => Column(
     children: [
       SizedBox(height: 88),
@@ -119,6 +120,7 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
     ],
   );
 
+  // ignore: strict_top_level_inference
   get _slideRow => SingleChildScrollView(
     padding: EdgeInsets.only(left: 20),
     scrollDirection: Axis.horizontal,
@@ -153,6 +155,7 @@ class _CardHomeWidgetState extends State<CardHomeWidget> {
     ),
   );
 
+  // ignore: strict_top_level_inference
   get _bottomCard => Container(
     padding: EdgeInsets.all(20),
     height: 135,
