@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/functions/function.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
-import 'package:flutter_first_project/screen/subject_detail.dart';
-import 'package:flutter_first_project/widget/bottom_navigation_bar_widget.dart';
-import 'package:flutter_first_project/widget/date_time_line_widget.dart';
-import 'package:flutter_first_project/widget/schedule_card.dart';
+import 'package:flutter_school_app/config/functions/function.dart';
+import 'package:flutter_school_app/config/theme/theme_style.dart';
+import 'package:flutter_school_app/screens/subject_detail.dart';
+import 'package:flutter_school_app/widget/buttom_navigation_bar_widget.dart';
+import 'package:flutter_school_app/widget/date_time_line_widget.dart';
+import 'package:flutter_school_app/widget/schedule_card.dart';
 
 class HomeSmall extends StatefulWidget {
   const HomeSmall({super.key});
@@ -28,7 +28,7 @@ class _HomeSmallState extends State<HomeSmall> {
     });
   }
 
-  get screen => [
+  List<dynamic> get screen => [
     _buildBody,
     Container(color: Colors.amber),
     Container(color: Colors.blue),
@@ -87,7 +87,7 @@ class _HomeSmallState extends State<HomeSmall> {
     );
   }
 
-  get _buildBody {
+  CustomScrollView get _buildBody {
     return CustomScrollView(
       slivers: [
         _buildAppBar,
@@ -111,7 +111,7 @@ class _HomeSmallState extends State<HomeSmall> {
     );
   }
 
-  get _buildAppBar {
+  SliverAppBar get _buildAppBar {
     return SliverAppBar(
       pinned: true,
       floating: false,

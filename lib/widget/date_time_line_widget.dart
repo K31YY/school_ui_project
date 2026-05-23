@@ -1,6 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_first_project/config/theme/theme_style.dart';
+import 'package:flutter_school_app/config/theme/theme_style.dart';
 
 class DateTimeLineWidget extends StatelessWidget {
   final void Function(DateTime)? onDateChange;
